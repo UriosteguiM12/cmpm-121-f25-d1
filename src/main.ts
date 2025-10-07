@@ -3,4 +3,7 @@ import "./style.css";
 
 document.body.innerHTML = `
   <p>Example image asset: <img src="${exampleIconUrl}" class="icon" /></p>
+  <button id="increment">Click Me!</button>
 `;
+
+const button = document.getElementById("increment")!;
