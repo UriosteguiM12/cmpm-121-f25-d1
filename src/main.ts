@@ -7,3 +7,7 @@ document.body.innerHTML = `
 `;
 
 const button = document.getElementById("increment")!;
+
+button.addEventListener("click", () => {
+  return;
+});
