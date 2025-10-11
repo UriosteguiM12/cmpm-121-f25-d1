@@ -11,3 +11,4 @@ const pizzaButton = document.getElementById("pizzaButton") as HTMLImageElement;
 pizzaButton.addEventListener("click", () => {
   console.log("Pizza made!");
 });
+
