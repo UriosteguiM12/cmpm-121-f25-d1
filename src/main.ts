@@ -12,12 +12,22 @@ document.body.innerHTML = `
 
 const pizzaButton = document.getElementById("pizzaButton") as HTMLImageElement;
 const counterElement = document.getElementById("counter")!;
-const _interval = setInterval(increaseCounter, 1000);
 
-function increaseCounter() {
-  counter += 1;
-  counterElement.innerHTML = counter.toString();
+// Determine frame rate
+let start = performance.now();
+
+function update(end: number) {
+  const seconds = (end - start) / 1000;
+  console.log(seconds);
+  start = end;
+
+  counter += seconds;
+  counterElement.textContent = counter.toFixed(0);
+
+  requestAnimationFrame(update);
 }
+
+requestAnimationFrame(update);
 
 // Click logic
 pizzaButton.addEventListener("click", () => {
