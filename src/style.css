@@ -1,5 +1,20 @@
 .icon {
-  width: 64px;
-  vertical-align: top;
-  border: 1px solid salmon;
+  width: 80px;
+  height: auto;
+}
+
+/* Add button-like behavior */
+.button-like {
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.button-like:hover {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+.button-like:active {
+  transform: scale(0.95);
+  filter: brightness(0.9);
 }

@@ -1,13 +1,13 @@
-import exampleIconUrl from "./noun-paperclip-7598668-00449F.png";
+import pizza from "./pizzaEmoji.png";
 import "./style.css";
 
+// Create a button that has a background image (like in cookie clicker)
 document.body.innerHTML = `
-  <p>Example image asset: <img src="${exampleIconUrl}" class="icon" /></p>
-  <button id="increment">Click Me!</button>
+  <img src="${pizza}" id="pizzaButton" class="icon button-like" />
 `;
 
-const button = document.getElementById("increment")!;
+const pizzaButton = document.getElementById("pizzaButton") as HTMLImageElement;
 
-button.addEventListener("click", () => {
-  return;
+pizzaButton.addEventListener("click", () => {
+  console.log("Pizza made!");
 });
