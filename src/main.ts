@@ -12,6 +12,12 @@ document.body.innerHTML = `
 
 const pizzaButton = document.getElementById("pizzaButton") as HTMLImageElement;
 const counterElement = document.getElementById("counter")!;
+const _interval = setInterval(increaseCounter, 1000);
+
+function increaseCounter() {
+  counter += 1;
+  counterElement.innerHTML = counter.toString();
+}
 
 // Click logic
 pizzaButton.addEventListener("click", () => {
