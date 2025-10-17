@@ -1,28 +1,35 @@
 import pizza from "./pizzaEmoji.png";
 import mouse from "./ratEmoji.png";
 import running from "./manRunning.png";
+import building from "./buildingEmoji.png";
 import "./style.css";
 
 // Create a counter
 let counter: number = 0;
 let mouseCounter: number = 0;
 let runCounter: number = 0;
+let buildingCounter: number = 0;
 
 // Create a button that has a background image (like in cookie clicker)
 document.body.innerHTML = `
   <img src="${pizza}" id="pizzaButton" class="icon button-like" />
   <img src="${mouse}" id="mouseButton" class = "icon button-like" />
   <img src="${running}" id="runButton" class = "icon button-like" />
+  <img src="${building}" id="buildingButton" class = "icon button-like" />
   <p>Counter: <span id="counter">0</span> pizzas</p>
 `;
 
 const pizzaButton = document.getElementById("pizzaButton") as HTMLImageElement;
 const mouseButton = document.getElementById("mouseButton") as HTMLButtonElement;
 const runButton = document.getElementById("runButton") as HTMLButtonElement;
+const buildingButton = document.getElementById(
+  "buildingButton",
+) as HTMLButtonElement;
 const counterElement = document.getElementById("counter")!;
 
 mouseButton.disabled = true;
 runButton.disabled = true;
+buildingButton.disabled = true;
 
 // Determine frame rate
 let start = performance.now();
@@ -34,6 +41,8 @@ function update(end: number) {
   counter += (seconds / 10) * mouseCounter; // Mouse upgrades provide 0.10 pizza slices / second
 
   counter += seconds * runCounter * 2; // Run upgrades provide 2 pizza slices / second
+
+  counter += seconds * buildingCounter * 50; // Building upgrades provide 50 pizza slices / second
 
   counterElement.textContent = counter.toFixed(0);
 
@@ -51,6 +60,14 @@ function update(end: number) {
   } else {
     runButton.disabled = true;
     runButton.style.opacity = "0.5";
+  }
+
+  if (counter >= 1000) {
+    buildingButton.disabled = false;
+    buildingButton.style.opacity = "1";
+  } else {
+    buildingButton.disabled = true;
+    buildingButton.style.opacity = "0.5";
   }
 
   requestAnimationFrame(update);
@@ -76,5 +93,12 @@ runButton.addEventListener("click", () => {
   if (counter >= 100) {
     runCounter += 1;
     counter -= 100;
+  }
+});
+
+buildingButton.addEventListener("click", () => {
+  if (counter >= 1000) {
+    buildingCounter += 1;
+    counter -= 1000;
   }
 });
