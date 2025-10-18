@@ -2,7 +2,17 @@ import pizza from "./pizzaEmoji.png";
 import mouse from "./ratEmoji.png";
 import running from "./manRunning.png";
 import building from "./buildingEmoji.png";
+import city from "./cityBackground.jpg";
 import "./style.css";
+
+// Set background image
+document.body.style.backgroundImage = `url(${city})`;
+document.body.style.backgroundSize = "cover";
+document.body.style.backgroundPosition = "center";
+document.body.style.backgroundRepeat = "no-repeat";
+document.body.style.backgroundAttachment = "fixed";
+document.body.style.margin = "0";
+document.body.style.height = "100vh";
 
 // Create a counter
 let counter: number = 0;
