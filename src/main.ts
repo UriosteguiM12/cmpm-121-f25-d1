@@ -5,7 +5,7 @@ import building from "./buildingEmoji.png";
 import city from "./cityBackground.jpg";
 import "./style.css";
 
-// Set background image
+// BG
 document.body.style.backgroundImage = `url(${city})`;
 document.body.style.backgroundSize = "cover";
 document.body.style.backgroundPosition = "center";
@@ -14,114 +14,124 @@ document.body.style.backgroundAttachment = "fixed";
 document.body.style.margin = "0";
 document.body.style.height = "100vh";
 
-// Create counters
-let counter: number = 0;
-let mouseCounter: number = 0;
-let runCounter: number = 0;
-let buildingCounter: number = 0;
+// Counter
+let counter = 0;
 
-document.body.innerHTML = `
-  <div id="counter-container">
-  <p>Counter: <span id="counter">0</span> pizzas</p>
-  <p>per second: <span id="PPS">0</span></p>
-  </div>
-  <img src="${pizza}" id="pizzaButton" class="icon button-like" />
-  <div class="icon-row">
-    <div class="upgrade">
-      <p>Rat Recruit</p>
-      <img src="${mouse}" id="mouseButton" class="icon button-like" />
-      <p>Price: <span id="mousePrice">10</span></p>
-      <p>Owned: <span id="mouseOwned">0</span></p>
-      <p>Each produces 0.1 PPS</p>
-      <p class="upgrade-flavor">They’re not pets. They’re interns.</p>
-    </div>
-    <div class="upgrade">
-      <p>Delivery Goon</p>
-      <img src="${running}" id="runButton" class="icon button-like" />
-      <p>Price: <span id="runPrice">100</span></p>
-      <p>Owned: <span id="runOwned">0</span></p>
-      <p>Each produces 2 PPS</p>
-      <p class="upgrade-flavor">Wears a stained uniform. Doesn’t ask questions. Delivers.</p>
-    </div>
-    <div class="upgrade">
-      <p>Rat HQ</p>
-      <img src="${building}" id="buildingButton" class="icon button-like" />
-      <p>Price: <span id="buildingPrice">1000</span></p>
-      <p>Owned: <span id="buildingOwned">0</span></p>
-      <p>Each produces 50 PPS</p>
-      <p class="upgrade-flavor">Now with clipboard. Now with benefits. Now in charge of you.</p>
-    </div>
-  </div>
-`;
-
-// Grab elements
-const pizzaButton = document.getElementById("pizzaButton") as HTMLImageElement;
-const mouseButton = document.getElementById("mouseButton") as HTMLButtonElement;
-const runButton = document.getElementById("runButton") as HTMLButtonElement;
-const buildingButton = document.getElementById(
-  "buildingButton",
-) as HTMLButtonElement;
-const counterElement = document.getElementById("counter")!;
-const PPS_Element = document.getElementById("PPS")!;
-const mouseOwned = document.getElementById("mouseOwned")!;
-const runOwned = document.getElementById("runOwned")!;
-const buildingOwned = document.getElementById("buildingOwned")!;
-const mousePriceElement = document.getElementById("mousePrice")!;
-const runPriceElement = document.getElementById("runPrice")!;
-const buildingPriceElement = document.getElementById("buildingPrice")!;
-
-// Disable upgrades initially
-mouseButton.disabled = true;
-runButton.disabled = true;
-buildingButton.disabled = true;
-
-// Function to calculate PPS based on upgrades
-function calculatePPS(): number {
-  return mouseCounter * 0.1 + runCounter * 2 + buildingCounter * 50;
+// Interface
+interface Item {
+  id: string;
+  name: string;
+  baseCost: number;
+  rate: number;
+  emoji: string;
+  flavor: string;
+  owned: number;
 }
 
+const availableItems: Item[] = [
+  {
+    id: "mouse",
+    name: "Rat Recruit",
+    baseCost: 10,
+    rate: 0.1,
+    emoji: mouse,
+    flavor: "They’re not pets. They’re interns.",
+    owned: 0,
+  },
+  {
+    id: "run",
+    name: "Delivery Goon",
+    baseCost: 100,
+    rate: 2,
+    emoji: running,
+    flavor: "Wears a stained uniform. Doesn’t ask questions. Delivers.",
+    owned: 0,
+  },
+  {
+    id: "building",
+    name: "Rat HQ",
+    baseCost: 1000,
+    rate: 50,
+    emoji: building,
+    flavor: "Now with clipboard. Now with benefits. Now in charge of you.",
+    owned: 0,
+  },
+];
+
+// HTML
+document.body.innerHTML = `
+  <div id="counter-container">
+    <p>Counter: <span id="counter">0</span> pizzas</p>
+    <p>per second: <span id="PPS">0</span></p>
+  </div>
+  <img src="${pizza}" id="pizzaButton" class="icon button-like" />
+  <div class="icon-row" id="upgrades-row"></div>
+`;
+
+const counterElement = document.getElementById("counter")!;
+const PPS_Element = document.getElementById("PPS")!;
+const pizzaButton = document.getElementById("pizzaButton") as HTMLImageElement;
+const upgradesRow = document.getElementById("upgrades-row")!;
+
+// Look through each upgrade and put them on the screen
+availableItems.forEach((item) => {
+  const div = document.createElement("div");
+  div.className = "upgrade";
+  div.innerHTML = `
+    <p>${item.name}</p>
+    <img src="${item.emoji}" id="${item.id}Button" class="icon button-like" />
+    <p>Price: <span id="${item.id}Price">${item.baseCost.toFixed(2)}</span></p>
+    <p>Owned: <span id="${item.id}Owned">0</span></p>
+    <p>Each produces ${item.rate} PPS</p>
+    <p class="upgrade-flavor">${item.flavor}</p>
+  `;
+  upgradesRow.appendChild(div);
+});
+
+// Functions
 function calculatePrice(base: number, owned: number): number {
   return base * Math.pow(1.15, owned);
+}
+
+function calculatePPS(): number {
+  return availableItems.reduce((sum, item) => sum + item.owned * item.rate, 0);
 }
 
 // Animation loop
 let lastTime = performance.now();
 function update(currentTime: number) {
-  const seconds = (currentTime - lastTime) / 1000;
+  // Calculate delta time
+  const deltaSeconds = (currentTime - lastTime) / 1000;
   lastTime = currentTime;
 
   // Increment counter based on PPS
   const currentPPS = calculatePPS();
-  counter += currentPPS * seconds;
+  counter += currentPPS * deltaSeconds;
 
   // Update counter and PPS displays
   counterElement.textContent = counter.toFixed(0);
   PPS_Element.textContent = currentPPS.toFixed(2);
 
   // Enable/disable upgrade buttons based on counter
-  if (counter >= calculatePrice(10, mouseCounter)) {
-    mouseButton.disabled = false;
-    mouseButton.style.opacity = "1";
-  } else {
-    mouseButton.disabled = true;
-    mouseButton.style.opacity = "0.5";
-  }
+  availableItems.forEach((item) => {
+    const button = document.getElementById(
+      `${item.id}Button`,
+    ) as HTMLImageElement;
+    const priceElement = document.getElementById(`${item.id}Price`)!;
+    const ownedElement = document.getElementById(`${item.id}Owned`)!;
 
-  if (counter >= calculatePrice(100, runCounter)) {
-    runButton.disabled = false;
-    runButton.style.opacity = "1";
-  } else {
-    runButton.disabled = true;
-    runButton.style.opacity = "0.5";
-  }
+    const price = calculatePrice(item.baseCost, item.owned);
+    priceElement.textContent = price.toFixed(2);
+    ownedElement.textContent = item.owned.toString();
 
-  if (counter >= calculatePrice(1000, buildingCounter)) {
-    buildingButton.disabled = false;
-    buildingButton.style.opacity = "1";
-  } else {
-    buildingButton.disabled = true;
-    buildingButton.style.opacity = "0.5";
-  }
+    if (counter >= price) {
+      button.style.pointerEvents = "auto";
+      button.style.opacity = "1";
+    } else {
+      button.style.pointerEvents = "none";
+      button.style.opacity = "0.5";
+    }
+  });
 
   requestAnimationFrame(update);
 }
@@ -133,36 +143,13 @@ pizzaButton.addEventListener("click", () => {
   counterElement.textContent = counter.toFixed(0);
 });
 
-mouseButton.addEventListener("click", () => {
-  const price = calculatePrice(10, mouseCounter);
-  if (counter >= price) {
-    mouseCounter += 1;
-    counter -= price;
-    PPS_Element.textContent = calculatePPS().toFixed(2);
-    mouseOwned.textContent = mouseCounter.toString();
-    mousePriceElement.textContent = calculatePrice(10, mouseCounter).toFixed(2);
-  }
-});
-
-runButton.addEventListener("click", () => {
-  const price = calculatePrice(100, runCounter);
-  if (counter >= price) {
-    runCounter += 1;
-    counter -= price;
-    PPS_Element.textContent = calculatePPS().toFixed(2);
-    runOwned.textContent = runCounter.toString();
-    runPriceElement.textContent = calculatePrice(100, runCounter).toFixed(2);
-  }
-});
-
-buildingButton.addEventListener("click", () => {
-  const price = calculatePrice(1000, buildingCounter);
-  if (counter >= price) {
-    buildingCounter += 1;
-    counter -= price;
-    PPS_Element.textContent = calculatePPS().toFixed(2);
-    buildingOwned.textContent = buildingCounter.toString();
-    buildingPriceElement.textContent = calculatePrice(1000, buildingCounter)
-      .toFixed(2);
-  }
+availableItems.forEach((item) => {
+  const button = document.getElementById(`${item.id}Button`)!;
+  button.addEventListener("click", () => {
+    const price = calculatePrice(item.baseCost, item.owned);
+    if (counter >= price) {
+      counter -= price;
+      item.owned += 1;
+    }
+  });
 });

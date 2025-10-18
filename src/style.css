@@ -1,18 +1,19 @@
-#counter-container p {
-  margin: 20px 0; /* smaller space between counter and PPS */
-  font-size: 1.5em;
-  font-weight: bold;
-  color: white;
-  text-align: center;
-}
-
-#counter {
-  color: white;
-}
+/* Counter Container */
+#counter-container p,
+#counter,
 p {
   color: white;
 }
 
+/* Counter spacing */
+#counter-container p {
+  margin: 20px 0;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Buttons & icons */
 .icon {
   width: 80px;
   height: auto;
@@ -33,15 +34,7 @@ p {
   filter: brightness(0.9);
 }
 
-/* Make the body centered vertically and horizontally */
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-/* Main pizza image */
+/* Main pizza button */
 #pizzaButton {
   width: 200px;
   height: auto;
@@ -49,15 +42,14 @@ body {
   cursor: pointer;
 }
 
-/* The upgrade icons row */
+/* Upgrade icons row */
 .icon-row {
   display: flex;
   justify-content: center;
-  gap: 40px; /* space between icons */
+  gap: 40px;
   margin-top: 10px;
 }
 
-/* Upgrade icon style */
 .icon-row img {
   width: 80px;
   height: auto;
@@ -69,26 +61,7 @@ body {
   transform: scale(1.1);
 }
 
-/* Counter text */
-p {
-  color: white;
-  font-size: 1.5em;
-  font-weight: bold;
-  margin-top: 20px;
-}
-
-.upgrade {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.upgrade p {
-  color: white;
-  margin: 5px 0 0 0;
-  font-weight: bold;
-}
-
+/* Upgrade boxes */
 .upgrade {
   display: flex;
   flex-direction: column;
@@ -97,11 +70,14 @@ p {
   padding: 10px 15px;
   border-radius: 10px;
   border: 2px solid white;
-  width: 200px; /* fixed width ensures text wraps */
+  width: 200px; /* ensures text wraps */
   margin: 10px;
 }
 
 .upgrade p {
+  color: white;
+  margin: 5px 0 0 0;
+  font-weight: bold;
   word-wrap: break-word;
   white-space: normal;
   text-align: center;
@@ -109,12 +85,17 @@ p {
 
 .upgrade p.upgrade-flavor {
   color: greenyellow;
-}
-
-.upgrade-flavor {
   font-size: 1em;
   font-style: italic;
   margin-top: 3px;
-  text-align: center;
   line-height: 1.2em;
+  text-align: center;
+}
+
+/* Body layout */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
