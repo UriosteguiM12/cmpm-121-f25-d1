@@ -1,3 +1,11 @@
+#counter-container p {
+  margin: 20px 0; /* smaller space between counter and PPS */
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+
 #counter {
   color: white;
 }
@@ -37,7 +45,7 @@ body {
 #pizzaButton {
   width: 200px;
   height: auto;
-  margin-top: 30px;
+  margin-top: 1px;
   cursor: pointer;
 }
 
@@ -45,8 +53,8 @@ body {
 .icon-row {
   display: flex;
   justify-content: center;
-  gap: 15px; /* space between icons */
-  margin-top: 20px;
+  gap: 40px; /* space between icons */
+  margin-top: 10px;
 }
 
 /* Upgrade icon style */
@@ -79,4 +87,34 @@ p {
   color: white;
   margin: 5px 0 0 0;
   font-weight: bold;
+}
+
+.upgrade {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(57, 121, 190, 0.5);
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 2px solid white;
+  width: 200px; /* fixed width ensures text wraps */
+  margin: 10px;
+}
+
+.upgrade p {
+  word-wrap: break-word;
+  white-space: normal;
+  text-align: center;
+}
+
+.upgrade p.upgrade-flavor {
+  color: greenyellow;
+}
+
+.upgrade-flavor {
+  font-size: 1em;
+  font-style: italic;
+  margin-top: 3px;
+  text-align: center;
+  line-height: 1.2em;
 }

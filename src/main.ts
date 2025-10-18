@@ -21,8 +21,10 @@ let runCounter: number = 0;
 let buildingCounter: number = 0;
 
 document.body.innerHTML = `
+  <div id="counter-container">
   <p>Counter: <span id="counter">0</span> pizzas</p>
   <p>per second: <span id="PPS">0</span></p>
+  </div>
   <img src="${pizza}" id="pizzaButton" class="icon button-like" />
   <div class="icon-row">
     <div class="upgrade">
@@ -30,18 +32,24 @@ document.body.innerHTML = `
       <img src="${mouse}" id="mouseButton" class="icon button-like" />
       <p>Price: <span id="mousePrice">10</span></p>
       <p>Owned: <span id="mouseOwned">0</span></p>
+      <p>Each produces 0.1 PPS</p>
+      <p class="upgrade-flavor">They’re not pets. They’re interns.</p>
     </div>
     <div class="upgrade">
       <p>Delivery Goon</p>
       <img src="${running}" id="runButton" class="icon button-like" />
       <p>Price: <span id="runPrice">100</span></p>
       <p>Owned: <span id="runOwned">0</span></p>
+      <p>Each produces 2 PPS</p>
+      <p class="upgrade-flavor">Wears a stained uniform. Doesn’t ask questions. Delivers.</p>
     </div>
     <div class="upgrade">
-      <p>Rat Lieutenant</p>
+      <p>Rat HQ</p>
       <img src="${building}" id="buildingButton" class="icon button-like" />
       <p>Price: <span id="buildingPrice">1000</span></p>
       <p>Owned: <span id="buildingOwned">0</span></p>
+      <p>Each produces 50 PPS</p>
+      <p class="upgrade-flavor">Now with clipboard. Now with benefits. Now in charge of you.</p>
     </div>
   </div>
 `;
