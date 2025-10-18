@@ -14,21 +14,25 @@ document.body.style.backgroundAttachment = "fixed";
 document.body.style.margin = "0";
 document.body.style.height = "100vh";
 
-// Create a counter
+// Create counters
 let counter: number = 0;
 let mouseCounter: number = 0;
 let runCounter: number = 0;
 let buildingCounter: number = 0;
 
-// Create a button that has a background image (like in cookie clicker)
+// Inject HTML
 document.body.innerHTML = `
-  <img src="${pizza}" id="pizzaButton" class="icon button-like" />
-  <img src="${mouse}" id="mouseButton" class = "icon button-like" />
-  <img src="${running}" id="runButton" class = "icon button-like" />
-  <img src="${building}" id="buildingButton" class = "icon button-like" />
   <p>Counter: <span id="counter">0</span> pizzas</p>
+  <p>per second: <span id="PPS">0</span></p>
+  <img src="${pizza}" id="pizzaButton" class="icon button-like" />
+  <div class="icon-row">
+    <img src="${mouse}" id="mouseButton" class="icon button-like" />
+    <img src="${running}" id="runButton" class="icon button-like" />
+    <img src="${building}" id="buildingButton" class="icon button-like" />
+  </div>
 `;
 
+// Grab elements
 const pizzaButton = document.getElementById("pizzaButton") as HTMLImageElement;
 const mouseButton = document.getElementById("mouseButton") as HTMLButtonElement;
 const runButton = document.getElementById("runButton") as HTMLButtonElement;
@@ -36,26 +40,33 @@ const buildingButton = document.getElementById(
   "buildingButton",
 ) as HTMLButtonElement;
 const counterElement = document.getElementById("counter")!;
+const PPS_Element = document.getElementById("PPS")!;
 
+// Disable upgrades initially
 mouseButton.disabled = true;
 runButton.disabled = true;
 buildingButton.disabled = true;
 
-// Determine frame rate
-let start = performance.now();
+// Function to calculate PPS based on upgrades
+function calculatePPS(): number {
+  return mouseCounter * 0.1 + runCounter * 2 + buildingCounter * 50;
+}
 
-function update(end: number) {
-  const seconds = (end - start) / 1000;
-  start = end;
+// Animation loop
+let lastTime = performance.now();
+function update(currentTime: number) {
+  const seconds = (currentTime - lastTime) / 1000;
+  lastTime = currentTime;
 
-  counter += (seconds / 10) * mouseCounter; // Mouse upgrades provide 0.10 pizza slices / second
+  // Increment counter based on PPS
+  const currentPPS = calculatePPS();
+  counter += currentPPS * seconds;
 
-  counter += seconds * runCounter * 2; // Run upgrades provide 2 pizza slices / second
-
-  counter += seconds * buildingCounter * 50; // Building upgrades provide 50 pizza slices / second
-
+  // Update counter and PPS displays
   counterElement.textContent = counter.toFixed(0);
+  PPS_Element.textContent = currentPPS.toFixed(2);
 
+  // Enable/disable upgrade buttons based on counter
   if (counter >= 10) {
     mouseButton.disabled = false;
     mouseButton.style.opacity = "1";
@@ -82,20 +93,19 @@ function update(end: number) {
 
   requestAnimationFrame(update);
 }
-
 requestAnimationFrame(update);
 
 // Click logic
 pizzaButton.addEventListener("click", () => {
-  console.log("Pizza made!");
   counter += 1;
-  counterElement.innerHTML = counter.toString();
+  counterElement.textContent = counter.toFixed(0);
 });
 
 mouseButton.addEventListener("click", () => {
   if (counter >= 10) {
     mouseCounter += 1;
     counter -= 10;
+    PPS_Element.textContent = calculatePPS().toFixed(1); // update PPS instantly
   }
 });
 
@@ -103,6 +113,7 @@ runButton.addEventListener("click", () => {
   if (counter >= 100) {
     runCounter += 1;
     counter -= 100;
+    PPS_Element.textContent = calculatePPS().toFixed(1);
   }
 });
 
@@ -110,5 +121,6 @@ buildingButton.addEventListener("click", () => {
   if (counter >= 1000) {
     buildingCounter += 1;
     counter -= 1000;
+    PPS_Element.textContent = calculatePPS().toFixed(1);
   }
 });

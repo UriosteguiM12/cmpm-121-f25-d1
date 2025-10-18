@@ -1,3 +1,10 @@
+#counter {
+  color: white;
+}
+p {
+  color: white;
+}
+
 .icon {
   width: 80px;
   height: auto;
@@ -16,4 +23,48 @@
 .button-like:active {
   transform: scale(0.95);
   filter: brightness(0.9);
+}
+
+/* Make the body centered vertically and horizontally */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Main pizza image */
+#pizzaButton {
+  width: 200px;
+  height: auto;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+/* The upgrade icons row */
+.icon-row {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* space between icons */
+  margin-top: 20px;
+}
+
+/* Upgrade icon style */
+.icon-row img {
+  width: 80px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.icon-row img:hover {
+  transform: scale(1.1);
+}
+
+/* Counter text */
+p {
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 20px;
 }

@@ -2,4 +2,4 @@
 
 Resources:
 
-- "./cityBackground.jpg" from: https://www.freepik.com/free-photos-vectors/city-background
+- "./cityBackground.jpg" from: <https://www.freepik.com/free-photos-vectors/city-background>
