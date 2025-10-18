@@ -26,16 +26,19 @@ document.body.innerHTML = `
   <img src="${pizza}" id="pizzaButton" class="icon button-like" />
   <div class="icon-row">
     <div class="upgrade">
+      <p>Rat Recruit</p>
       <img src="${mouse}" id="mouseButton" class="icon button-like" />
       <p>Price: <span id="mousePrice">10</span></p>
       <p>Owned: <span id="mouseOwned">0</span></p>
     </div>
     <div class="upgrade">
+      <p>Delivery Goon</p>
       <img src="${running}" id="runButton" class="icon button-like" />
       <p>Price: <span id="runPrice">100</span></p>
       <p>Owned: <span id="runOwned">0</span></p>
     </div>
     <div class="upgrade">
+      <p>Rat Lieutenant</p>
       <img src="${building}" id="buildingButton" class="icon button-like" />
       <p>Price: <span id="buildingPrice">1000</span></p>
       <p>Owned: <span id="buildingOwned">0</span></p>
