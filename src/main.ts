@@ -20,15 +20,23 @@ let mouseCounter: number = 0;
 let runCounter: number = 0;
 let buildingCounter: number = 0;
 
-// Inject HTML
 document.body.innerHTML = `
   <p>Counter: <span id="counter">0</span> pizzas</p>
   <p>per second: <span id="PPS">0</span></p>
   <img src="${pizza}" id="pizzaButton" class="icon button-like" />
   <div class="icon-row">
-    <img src="${mouse}" id="mouseButton" class="icon button-like" />
-    <img src="${running}" id="runButton" class="icon button-like" />
-    <img src="${building}" id="buildingButton" class="icon button-like" />
+    <div class="upgrade">
+      <img src="${mouse}" id="mouseButton" class="icon button-like" />
+      <p>Owned: <span id="mouseOwned">0</span></p>
+    </div>
+    <div class="upgrade">
+      <img src="${running}" id="runButton" class="icon button-like" />
+      <p>Owned: <span id="runOwned">0</span></p>
+    </div>
+    <div class="upgrade">
+      <img src="${building}" id="buildingButton" class="icon button-like" />
+      <p>Owned: <span id="buildingOwned">0</span></p>
+    </div>
   </div>
 `;
 
@@ -41,6 +49,9 @@ const buildingButton = document.getElementById(
 ) as HTMLButtonElement;
 const counterElement = document.getElementById("counter")!;
 const PPS_Element = document.getElementById("PPS")!;
+const mouseOwned = document.getElementById("mouseOwned")!;
+const runOwned = document.getElementById("runOwned")!;
+const buildingOwned = document.getElementById("buildingOwned")!;
 
 // Disable upgrades initially
 mouseButton.disabled = true;
@@ -105,7 +116,8 @@ mouseButton.addEventListener("click", () => {
   if (counter >= 10) {
     mouseCounter += 1;
     counter -= 10;
-    PPS_Element.textContent = calculatePPS().toFixed(1); // update PPS instantly
+    PPS_Element.textContent = calculatePPS().toFixed(2);
+    mouseOwned.textContent = mouseCounter.toString(); // update "Owned"
   }
 });
 
@@ -113,7 +125,8 @@ runButton.addEventListener("click", () => {
   if (counter >= 100) {
     runCounter += 1;
     counter -= 100;
-    PPS_Element.textContent = calculatePPS().toFixed(1);
+    PPS_Element.textContent = calculatePPS().toFixed(2);
+    runOwned.textContent = runCounter.toString(); // update "Owned"
   }
 });
 
@@ -121,6 +134,7 @@ buildingButton.addEventListener("click", () => {
   if (counter >= 1000) {
     buildingCounter += 1;
     counter -= 1000;
-    PPS_Element.textContent = calculatePPS().toFixed(1);
+    PPS_Element.textContent = calculatePPS().toFixed(2);
+    buildingOwned.textContent = buildingCounter.toString(); // update "Owned"
   }
 });

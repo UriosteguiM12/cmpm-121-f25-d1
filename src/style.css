@@ -68,3 +68,15 @@ p {
   font-weight: bold;
   margin-top: 20px;
 }
+
+.upgrade {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upgrade p {
+  color: white;
+  margin: 5px 0 0 0;
+  font-weight: bold;
+}
