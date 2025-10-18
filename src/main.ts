@@ -27,14 +27,17 @@ document.body.innerHTML = `
   <div class="icon-row">
     <div class="upgrade">
       <img src="${mouse}" id="mouseButton" class="icon button-like" />
+      <p>Price: <span id="mousePrice">10</span></p>
       <p>Owned: <span id="mouseOwned">0</span></p>
     </div>
     <div class="upgrade">
       <img src="${running}" id="runButton" class="icon button-like" />
+      <p>Price: <span id="runPrice">100</span></p>
       <p>Owned: <span id="runOwned">0</span></p>
     </div>
     <div class="upgrade">
       <img src="${building}" id="buildingButton" class="icon button-like" />
+      <p>Price: <span id="buildingPrice">1000</span></p>
       <p>Owned: <span id="buildingOwned">0</span></p>
     </div>
   </div>
@@ -52,6 +55,9 @@ const PPS_Element = document.getElementById("PPS")!;
 const mouseOwned = document.getElementById("mouseOwned")!;
 const runOwned = document.getElementById("runOwned")!;
 const buildingOwned = document.getElementById("buildingOwned")!;
+const mousePriceElement = document.getElementById("mousePrice")!;
+const runPriceElement = document.getElementById("runPrice")!;
+const buildingPriceElement = document.getElementById("buildingPrice")!;
 
 // Disable upgrades initially
 mouseButton.disabled = true;
@@ -61,6 +67,10 @@ buildingButton.disabled = true;
 // Function to calculate PPS based on upgrades
 function calculatePPS(): number {
   return mouseCounter * 0.1 + runCounter * 2 + buildingCounter * 50;
+}
+
+function calculatePrice(base: number, owned: number): number {
+  return base * Math.pow(1.15, owned);
 }
 
 // Animation loop
@@ -78,7 +88,7 @@ function update(currentTime: number) {
   PPS_Element.textContent = currentPPS.toFixed(2);
 
   // Enable/disable upgrade buttons based on counter
-  if (counter >= 10) {
+  if (counter >= calculatePrice(10, mouseCounter)) {
     mouseButton.disabled = false;
     mouseButton.style.opacity = "1";
   } else {
@@ -86,7 +96,7 @@ function update(currentTime: number) {
     mouseButton.style.opacity = "0.5";
   }
 
-  if (counter >= 100) {
+  if (counter >= calculatePrice(100, runCounter)) {
     runButton.disabled = false;
     runButton.style.opacity = "1";
   } else {
@@ -94,7 +104,7 @@ function update(currentTime: number) {
     runButton.style.opacity = "0.5";
   }
 
-  if (counter >= 1000) {
+  if (counter >= calculatePrice(1000, buildingCounter)) {
     buildingButton.disabled = false;
     buildingButton.style.opacity = "1";
   } else {
@@ -113,28 +123,34 @@ pizzaButton.addEventListener("click", () => {
 });
 
 mouseButton.addEventListener("click", () => {
-  if (counter >= 10) {
+  const price = calculatePrice(10, mouseCounter);
+  if (counter >= price) {
     mouseCounter += 1;
-    counter -= 10;
+    counter -= price;
     PPS_Element.textContent = calculatePPS().toFixed(2);
-    mouseOwned.textContent = mouseCounter.toString(); // update "Owned"
+    mouseOwned.textContent = mouseCounter.toString();
+    mousePriceElement.textContent = calculatePrice(10, mouseCounter).toFixed(2);
   }
 });
 
 runButton.addEventListener("click", () => {
-  if (counter >= 100) {
+  const price = calculatePrice(100, runCounter);
+  if (counter >= price) {
     runCounter += 1;
-    counter -= 100;
+    counter -= price;
     PPS_Element.textContent = calculatePPS().toFixed(2);
-    runOwned.textContent = runCounter.toString(); // update "Owned"
+    runOwned.textContent = runCounter.toString();
+    runPriceElement.textContent = calculatePrice(100, runCounter).toFixed(2);
   }
 });
 
 buildingButton.addEventListener("click", () => {
-  if (counter >= 1000) {
+  const price = calculatePrice(1000, buildingCounter);
+  if (counter >= price) {
     buildingCounter += 1;
-    counter -= 1000;
+    counter -= price;
     PPS_Element.textContent = calculatePPS().toFixed(2);
-    buildingOwned.textContent = buildingCounter.toString(); // update "Owned"
+    buildingOwned.textContent = buildingCounter.toString();
+    buildingPriceElement.textContent = calculatePrice(1000, buildingCounter).toFixed(2);
   }
 });
