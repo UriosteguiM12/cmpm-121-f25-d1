@@ -151,6 +151,7 @@ buildingButton.addEventListener("click", () => {
     counter -= price;
     PPS_Element.textContent = calculatePPS().toFixed(2);
     buildingOwned.textContent = buildingCounter.toString();
-    buildingPriceElement.textContent = calculatePrice(1000, buildingCounter).toFixed(2);
+    buildingPriceElement.textContent = calculatePrice(1000, buildingCounter)
+      .toFixed(2);
   }
 });
