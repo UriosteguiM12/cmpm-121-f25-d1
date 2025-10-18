@@ -2,6 +2,8 @@ import pizza from "./pizzaEmoji.png";
 import mouse from "./ratEmoji.png";
 import running from "./manRunning.png";
 import building from "./buildingEmoji.png";
+import truck from "./truck.png";
+import robot from "./robot2.png";
 import city from "./cityBackground.jpg";
 import "./style.css";
 
@@ -54,6 +56,24 @@ const availableItems: Item[] = [
     rate: 50,
     emoji: building,
     flavor: "Now with clipboard. Now with benefits. Now in charge of you.",
+    owned: 0,
+  },
+  {
+    id: "truck",
+    name: "Night Truck",
+    baseCost: 10000,
+    rate: 100,
+    emoji: truck,
+    flavor: "Runs on cheese. Smells like regret. Only active at night.",
+    owned: 0,
+  },
+  {
+    id: "robot",
+    name: "Cyber-Rat",
+    baseCost: 50000,
+    rate: 1000,
+    emoji: robot,
+    flavor: "Consciousness is overrated. But cheddar? Cheddar is eternal.",
     owned: 0,
   },
 ];
