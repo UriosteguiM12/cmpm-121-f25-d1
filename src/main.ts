@@ -106,6 +106,16 @@ availableItems.forEach((item) => {
     <p class="upgrade-flavor">${item.flavor}</p>
   `;
   upgradesRow.appendChild(div);
+
+  // add click logic
+  const button = document.getElementById(`${item.id}Button`)!;
+  button.addEventListener("click", () => {
+    const price = calculatePrice(item.baseCost, item.owned);
+    if (counter >= price) {
+      counter -= price;
+      item.owned += 1;
+    }
+  });
 });
 
 // Functions
@@ -161,15 +171,4 @@ requestAnimationFrame(update);
 pizzaButton.addEventListener("click", () => {
   counter += 1;
   counterElement.textContent = counter.toFixed(0);
-});
-
-availableItems.forEach((item) => {
-  const button = document.getElementById(`${item.id}Button`)!;
-  button.addEventListener("click", () => {
-    const price = calculatePrice(item.baseCost, item.owned);
-    if (counter >= price) {
-      counter -= price;
-      item.owned += 1;
-    }
-  });
 });
