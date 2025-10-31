@@ -7,6 +7,17 @@ import robot from "./robot2.png";
 import city from "./cityBackground.jpg";
 import "./style.css";
 
+// Interface
+interface Item {
+  id: string;
+  name: string;
+  baseCost: number;
+  rate: number;
+  emoji: string;
+  flavor: string;
+  owned: number;
+}
+
 // BG
 document.body.style.backgroundImage = `url(${city})`;
 document.body.style.backgroundSize = "cover";
@@ -18,17 +29,6 @@ document.body.style.height = "100vh";
 
 // Counter
 let counter = 0;
-
-// Interface
-interface Item {
-  id: string;
-  name: string;
-  baseCost: number;
-  rate: number;
-  emoji: string;
-  flavor: string;
-  owned: number;
-}
 
 const availableItems: Item[] = [
   {
