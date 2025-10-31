@@ -5,7 +5,7 @@ An incremental clicker game about pizza! Feed your little rat friend that is def
 Inspired By:
 
 - "Gone Fishing" by fractalizes <https://github.com/fractalizes/cmpm-121-f25-d1> -> added scrolling because of this!
-- ""
+- "Mambo Studio" by benho612 <https://github.com/benho612/CMPM1212-D1-Assignement> -> added mini falling pizzas because of this!
 
 Resources:
 
