@@ -92,12 +92,16 @@ document.body.innerHTML = `
   <div id="upgrades-container" class="scrollable">
     <div id="upgrades-row"></div>
   </div>
+
+  <div id="pizza-rain-container"></div>
 `;
 
 const counterElement = document.getElementById("pizzaCounter")!;
 const pizzasPerSecondDisplay = document.getElementById("PPS")!;
 const pizzaButton = document.getElementById("pizzaButton") as HTMLImageElement;
 const upgradesRow = document.getElementById("upgrades-row")!;
+const pizzaRainContainer = document.getElementById("pizza-rain-container")!;
+const miniPizzaSrc = pizza;
 
 // Look through each upgrade and put them on the screen
 availableItems.forEach((item) => {
@@ -178,3 +182,55 @@ pizzaButton.addEventListener("click", () => {
   pizzaCounter += 1;
   counterElement.textContent = pizzaCounter.toFixed(0);
 });
+
+
+function createMiniPizza() {
+  const pizza = document.createElement("img");
+  pizza.src = miniPizzaSrc;
+  pizza.className = "mini-pizza";
+
+  // Random side: left or right
+  const side = Math.random() < 0.5 ? "left" : "right";
+  pizza.style.left = side === "left"
+    ? `${Math.random() * 40}px`
+    : `${globalThis.innerWidth - 70 - Math.random() * 40}px`;
+
+  pizza.style.top = `${-30}px`; // start above screen
+
+  // Random falling speed and rotation
+  const speed = 1 + Math.random() * 2; // pixels per frame
+  const rotateSpeed = (Math.random() - 0.5) * 4; // degrees per frame
+  let rotation = Math.random() * 360;
+
+  const amplitude = 5 + Math.random() * 5; // horizontal wobble in px
+  const wobbleSpeed = 0.05 + Math.random() * 0.05; // wobble speed
+  let wobbleOffset = Math.random() * Math.PI * 2;
+
+  pizzaRainContainer.appendChild(pizza);
+
+  function fall() {
+    let currentY = parseFloat(pizza.style.top);
+    if (currentY > globalThis.innerHeight) {
+      pizza.remove();
+      return;
+    }
+
+    // move down
+    currentY += speed;
+    pizza.style.top = `${currentY}px`;
+
+    // rotate
+    rotation += rotateSpeed;
+    pizza.style.transform = `rotate(${rotation}deg) translateX(${
+      Math.sin(wobbleOffset) * amplitude
+    }px)`;
+    wobbleOffset += wobbleSpeed;
+
+    requestAnimationFrame(fall);
+  }
+
+  requestAnimationFrame(fall);
+}
+
+// Spawn pizzas continuously
+setInterval(createMiniPizza, 200);

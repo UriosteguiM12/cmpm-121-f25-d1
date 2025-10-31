@@ -162,15 +162,35 @@ body {
 #PPS {
   color: #ffd700;
   font-weight: bold;
-  font-family: "Bangers", cursive; /* or any of the fonts above */
+  font-family: "Bangers", cursive;
   font-size: 1em;
 }
 
 #game-title {
-  font-family: "Bangers", cursive; /* or any bold/fun font you like */
-  font-size: 3em; /* adjust as needed */
-  color: #ffcc00; /* golden, pizza-themed */
+  font-family: "Bangers", cursive;
+  font-size: 3em;
+  color: #ffcc00;
   text-align: center;
   margin-bottom: 20px;
-  text-shadow: 2px 2px 4px #000; /* optional: adds pop over background */
+  text-shadow: 2px 2px 4px #000;
+}
+
+#pizza-rain-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* clicks pass through */
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.mini-pizza {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  pointer-events: none;
+  user-select: none;
+  transform-origin: center;
 }
