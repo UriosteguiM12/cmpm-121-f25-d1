@@ -183,7 +183,6 @@ pizzaButton.addEventListener("click", () => {
   counterElement.textContent = pizzaCounter.toFixed(0);
 });
 
-
 function createMiniPizza() {
   const pizza = document.createElement("img");
   pizza.src = miniPizzaSrc;
