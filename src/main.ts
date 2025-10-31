@@ -27,8 +27,8 @@ document.body.style.backgroundAttachment = "fixed";
 document.body.style.margin = "0";
 document.body.style.height = "100vh";
 
-// Counter
-let counter = 0;
+// pizzaCounter
+let pizzaCounter = 0;
 
 const availableItems: Item[] = [
   {
@@ -80,16 +80,16 @@ const availableItems: Item[] = [
 
 // HTML
 document.body.innerHTML = `
-  <div id="counter-container">
-    <p>Counter: <span id="counter">0</span> pizzas</p>
+  <div id="pizzaCounter-container">
+    <p>Counter: <span id="pizzaCounter">0</span> pizzas</p>
     <p>per second: <span id="PPS">0</span></p>
   </div>
   <img src="${pizza}" id="pizzaButton" class="icon button-like" />
   <div class="icon-row" id="upgrades-row"></div>
 `;
 
-const counterElement = document.getElementById("counter")!;
-const PPS_Element = document.getElementById("PPS")!;
+const counterElement = document.getElementById("pizzaCounter")!;
+const pizzasPerSecondDisplay = document.getElementById("PPS")!;
 const pizzaButton = document.getElementById("pizzaButton") as HTMLImageElement;
 const upgradesRow = document.getElementById("upgrades-row")!;
 
@@ -111,8 +111,8 @@ availableItems.forEach((item) => {
   const button = document.getElementById(`${item.id}Button`)!;
   button.addEventListener("click", () => {
     const price = calculatePrice(item.baseCost, item.owned);
-    if (counter >= price) {
-      counter -= price;
+    if (pizzaCounter >= price) {
+      pizzaCounter -= price;
       item.owned += 1;
     }
   });
@@ -123,7 +123,7 @@ function calculatePrice(base: number, owned: number): number {
   return base * Math.pow(1.15, owned);
 }
 
-function calculatePPS(): number {
+function calculatePizzasPerSecond(): number {
   return availableItems.reduce((sum, item) => sum + item.owned * item.rate, 0);
 }
 
@@ -134,15 +134,15 @@ function update(currentTime: number) {
   const deltaSeconds = (currentTime - lastTime) / 1000;
   lastTime = currentTime;
 
-  // Increment counter based on PPS
-  const currentPPS = calculatePPS();
-  counter += currentPPS * deltaSeconds;
+  // Increment pizzaCounter based on PPS
+  const currentPPS = calculatePizzasPerSecond();
+  pizzaCounter += currentPPS * deltaSeconds;
 
-  // Update counter and PPS displays
-  counterElement.textContent = counter.toFixed(0);
-  PPS_Element.textContent = currentPPS.toFixed(2);
+  // Update pizzaCounter and PPS displays
+  counterElement.textContent = pizzaCounter.toFixed(0);
+  pizzasPerSecondDisplay.textContent = currentPPS.toFixed(2);
 
-  // Enable/disable upgrade buttons based on counter
+  // Enable/disable upgrade buttons based on pizzaCounter
   availableItems.forEach((item) => {
     const button = document.getElementById(
       `${item.id}Button`,
@@ -154,7 +154,7 @@ function update(currentTime: number) {
     priceElement.textContent = price.toFixed(2);
     ownedElement.textContent = item.owned.toString();
 
-    if (counter >= price) {
+    if (pizzaCounter >= price) {
       button.style.pointerEvents = "auto";
       button.style.opacity = "1";
     } else {
@@ -169,6 +169,6 @@ requestAnimationFrame(update);
 
 // Click logic
 pizzaButton.addEventListener("click", () => {
-  counter += 1;
-  counterElement.textContent = counter.toFixed(0);
+  pizzaCounter += 1;
+  counterElement.textContent = pizzaCounter.toFixed(0);
 });

@@ -1,12 +1,12 @@
 /* Counter Container */
-#counter-container p,
-#counter,
+#pizzaCounter-container p,
+#pizzaCounter,
 p {
   color: white;
 }
 
 /* Counter spacing */
-#counter-container p {
+#pizzaCounter-container p {
   margin: 20px 0;
   font-size: 1.5em;
   font-weight: bold;
