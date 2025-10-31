@@ -1,24 +1,148 @@
-/* Counter Container */
-#pizzaCounter-container p,
-#pizzaCounter,
-p {
+/* Base Layout */
+body {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+/* Left Half: Pizza + Counter */
+#left-panel {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* move everything to the top */
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 20px 20px 20px 20px;
+  box-sizing: border-box;
+}
+
+#pizzaCounter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+
+#pizzaCounter-container p {
+  margin: 10px 0;
+  font-size: 1.5em;
+  font-weight: bold;
   color: white;
 }
 
-/* Counter spacing */
-#pizzaCounter-container p {
-  margin: 20px 0;
-  font-size: 1.5em;
+#pizzaCounter,
+#PPS {
+  color: #ffd700;
   font-weight: bold;
+}
+
+/* Pizza button */
+#pizzaButton {
+  width: 70%;
+  max-width: 370px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+#pizzaButton:hover {
+  transform: scale(1.15);
+  filter: brightness(1.2);
+}
+
+#pizzaButton:active {
+  transform: scale(0.95);
+  filter: brightness(0.9);
+}
+
+/* Right Half: Upgrades */
+#upgrades-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  height: 100vh;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-left: 2px solid white;
+  box-sizing: border-box;
+  gap: 10px;
+}
+
+/* Scrollbar styling */
+#upgrades-container::-webkit-scrollbar {
+  width: 10px;
+}
+#upgrades-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+}
+#upgrades-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* Upgrade Boxes */
+.upgrade {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(57, 121, 190, 0.5);
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 2px solid white;
+  width: 220px;
+  margin: 10px 0;
+  color: white;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.upgrade:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.upgrade p {
+  color: white;
+  margin: 5px 0 0 0;
+  font-weight: bold;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.upgrade p.upgrade-flavor {
+  color: greenyellow;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 3px;
+  line-height: 1.2em;
   text-align: center;
 }
 
-/* Buttons & icons */
-.icon {
-  width: 80px;
-  height: auto;
+/* Upgrade Icons */
+#upgrades-container .icon {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
+#upgrades-container .icon:hover {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+/* Global button hover */
 .button-like {
   cursor: pointer;
   transition: transform 0.2s ease, filter 0.2s ease;
@@ -34,68 +158,19 @@ p {
   filter: brightness(0.9);
 }
 
-/* Main pizza button */
-#pizzaButton {
-  width: 200px;
-  height: auto;
-  margin-top: 1px;
-  cursor: pointer;
-}
-
-/* Upgrade icons row */
-.icon-row {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  margin-top: 10px;
-}
-
-.icon-row img {
-  width: 80px;
-  height: auto;
-  cursor: pointer;
-  transition: transform 0.1s;
-}
-
-.icon-row img:hover {
-  transform: scale(1.1);
-}
-
-/* Upgrade boxes */
-.upgrade {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: rgba(57, 121, 190, 0.5);
-  padding: 10px 15px;
-  border-radius: 10px;
-  border: 2px solid white;
-  width: 200px; /* ensures text wraps */
-  margin: 10px;
-}
-
-.upgrade p {
-  color: white;
-  margin: 5px 0 0 0;
+#pizzaCounter,
+#PPS {
+  color: #ffd700;
   font-weight: bold;
-  word-wrap: break-word;
-  white-space: normal;
-  text-align: center;
-}
-
-.upgrade p.upgrade-flavor {
-  color: greenyellow;
+  font-family: "Bangers", cursive; /* or any of the fonts above */
   font-size: 1em;
-  font-style: italic;
-  margin-top: 3px;
-  line-height: 1.2em;
-  text-align: center;
 }
 
-/* Body layout */
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+#game-title {
+  font-family: "Bangers", cursive; /* or any bold/fun font you like */
+  font-size: 3em; /* adjust as needed */
+  color: #ffcc00; /* golden, pizza-themed */
   text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px #000; /* optional: adds pop over background */
 }

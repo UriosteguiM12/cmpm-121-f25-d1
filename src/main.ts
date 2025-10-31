@@ -80,12 +80,18 @@ const availableItems: Item[] = [
 
 // HTML
 document.body.innerHTML = `
-  <div id="pizzaCounter-container">
-    <p>Counter: <span id="pizzaCounter">0</span> pizzas</p>
-    <p>per second: <span id="PPS">0</span></p>
+  <div id="left-panel">
+    <h1 id="game-title">Cheese & Conquest</h1>
+    <div id="pizzaCounter-container">
+      <p>Counter: <span id="pizzaCounter">0</span> pizzas</p>
+      <p>per second: <span id="PPS">0</span></p>
+    </div>
+    <img src="${pizza}" id="pizzaButton" class="icon button-like" />
   </div>
-  <img src="${pizza}" id="pizzaButton" class="icon button-like" />
-  <div class="icon-row" id="upgrades-row"></div>
+  
+  <div id="upgrades-container" class="scrollable">
+    <div id="upgrades-row"></div>
+  </div>
 `;
 
 const counterElement = document.getElementById("pizzaCounter")!;
